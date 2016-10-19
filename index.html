@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laptop Shopping Helper</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-checkbox-fancy.css" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/hcc-tsse.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Laptop Shopping Helper</h2>
+    <hr/>
+
+    <div class="col-md-12 carousel slide" data-interval="false" id="search-carousel">
+        <div class="carousel-inner">
+
+            <div class="item active" id="coursel-step1">
+                <h2>Choose laptop features you desire:</h2>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <input type="checkbox" id="checkbox-business"/>
+                        <div class="btn-group">
+                                <label for="checkbox-business" class="btn btn-info">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="checkbox-business" class="btn btn-default active">
+                                <i class="fa fa-briefcase fa-lg"></i>
+                                Business
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                        <input type="checkbox" id="checkbox-gaming"/>
+                        <div class="btn-group">
+                            <label for="checkbox-gaming" class="btn btn-info">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="checkbox-gaming" class="btn btn-default active">
+                                <i class="fa fa-gamepad fa-lg"></i>
+                                Gaming
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                        <input type="checkbox" id="checkbox-computing"/>
+                        <div class="btn-group">
+                            <label for="checkbox-computing" class="btn btn-info">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="checkbox-computing" class="btn btn-default active">
+                                <i class="fa fa-calculator fa-lg"></i>
+                                Computing-intensive
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                        <input type="checkbox" id="checkbox-design"/>
+                        <div class="btn-group">
+                            <label for="checkbox-design" class="btn btn-info">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="checkbox-design" class="btn btn-default active">
+                                <i class="fa fa-paint-brush fa-lg"></i>
+                                Graphic Design
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                        <input type="checkbox" id="checkbox-lightweight"/>
+                        <div class="btn-group">
+                            <label for="checkbox-lightweight" class="btn btn-info">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="checkbox-lightweight" class="btn btn-default active">
+                                <i class="fa fa-leaf fa-lg"></i>
+                                Lightweight
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <p></p>
+                    <div class="col-md-1 control-group">
+                        <button class="btn btn-primary" id="next-step1">Next</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="item col-md-12" id="coursel-step2">
+                <h2 id="h2-step2"></h2>
+                <table class="table table-striped" id="table-result-step2">
+                    <thead>
+                    <th class="col-md-4"><h3 id="h3-forum1-step2"></h3></th>
+                    <th class="col-md-4"><h3 id="h3-forum2-step2"></h3></th>
+                    <th class="col-md-4"><h3 id="h3-forum3-step2"></h3></th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/hcc-tsse.js"></script>
+</body>
+
+</html>
