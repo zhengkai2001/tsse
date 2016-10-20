@@ -1,93 +1,102 @@
-var phpUrl = 'http://localhost/tsse/query.php?';
+var phpUrl = 'http://localhost/tsse/utils.php?';
 
-var rowNumber = 12;
-var columnNumber = 3;
-
-var resultTable = $('#table-result-step2');
-for (var i = 1; i <= rowNumber; i++) {
-    var trId = 'tr-result-step2-' + i.toString();
-    resultTable.append('<tr id="' + trId + '"></tr>');
-    for (var j = 1; j <= columnNumber; j++) {
-        var tr = $('#' + trId);
-        var tdId = 'td-result-step2-' + i.toString() + '-' + j.toString();
-        tr.append('<td class="col-md-4" id="' + tdId + '"></td>');
-    }
-}
-
-$(document).on('click', '#next-step1', function () {
-    var business = $('#checkbox-business').prop('checked');
-    var gaming = $('#checkbox-gaming').prop('checked');
-    var computing = $('#checkbox-computing').prop('checked');
-    var design = $('#checkbox-design').prop('checked');
-    var lightweight = $('#checkbox-lightweight').prop('checked');
-
-    var keywords = 'i7 6700HQ';
-    $('#h2-step2').text('Search Results for "' + keywords + '"');
-
-    // forum 1: notebookreview
-    var query1 = phpUrl + 'nbr_forum_search=' + keywords;
-    $.get(query1, function (resultPage) {
+function searchFromNBR(keywords) {
+    // forum: notebookreview
+    var query = phpUrl + 'search&forum=nbr&keywords=' + keywords;
+    $.get(query, function (resultPage) {
         var doc = $.parseHTML(resultPage.toString());
 
-        var resultTitleHtml = $(doc).find('h1.searchResultsTitle').html();
-        var indexOfFor = resultTitleHtml.indexOf('for');
-        var resultTitle = resultTitleHtml.substr(0, indexOfFor) + 'from NotebookReview';
-        $('#h3-forum1-step2').text(resultTitle);
+        // var resultTitleHtml = $(doc).find('h1.searchResultsTitle').text();
+        // var indexOfFor = resultTitleHtml.indexOf('for');
+        // var message = resultTitleHtml.substr(0, indexOfFor) + 'from NotebookReview';
+        // $('#message-result').text(message);
+
+        var hasData = false;
 
         var results = $(doc).find('div.contentListItem');
         results.each(function (index, result) {
-            var i = (index + 1).toString();
+            var iStr = (index + 1).toString();
 
-            var tdId = 'td-result-step2-' + i + '-1';
-            var td = $('#' + tdId);
+            var trId = 'tr-' + iStr;
+            var tdInterestId = 'td-interested-' + iStr;
+            var tdContentId = 'td-content-' + iStr;
+
+            var table = $('#table-result');
+            table.append('<tr id="' + trId + '"></tr>');
+            var tr = $('#' + trId);
+
+            tr.append('<td id="' + tdInterestId + '" class="col-md-2"></td>');
+            tr.append('<td id="' + tdContentId + '" class="col-md-10"></td>');
+            var tdInterested = $('#' + tdInterestId);
+            var tdContent = $('#' + tdContentId);
 
             // "Interested" checkbox
-            td.append('<div class="form-group"><input type="checkbox" id="checkbox-step2-' + i + '-1" /><div class="btn-group"><label for="checkbox-step2-' + i + '-1" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span><span> </span></label><label for="checkbox-step2-' + i + '-1" class="btn btn-default active">Interested</label></div></div>');
+            tdInterested.append('<div class="form-group"><input type="checkbox" id="checkbox-' + iStr + '"/><div class="btn-group"><label for="checkbox-' + iStr + '" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span><span> </span></label><label for="checkbox-' + iStr + '" class="btn btn-default active">Interested</label></div> </div>');
 
             var imageUrl = $(result).find('img').prop('src');
-            td.append('<img src="' + imageUrl + '">');
+            tdContent.append('<img src="' + imageUrl + '">');
 
             var title = $(result).find('h4.title');
             var a = $(title).find('a')[0];
-            td.append('<p><a href="' + a + '">' + title.text() + '</a></p>');
+            tdContent.append('<p><a href="' + a + '">' + title.text() + '</a></p>');
 
             var summary = $(result).find('p.summary');
-            td.append(summary);
+            tdContent.append(summary);
+
+            hasData = true;
         });
+
+        if (hasData) {
+            $('.no-data').hide();
+        } else {
+            $('.no-data').show();
+        }
     });
-
-    // forum 2: laptopmag
-    var query2 = phpUrl + 'ltm_forum_search=' + keywords;
-    $.get(query2, function (resultPage) {
-        var doc = $.parseHTML(resultPage.toString());
-        alert(resultPage.toString());
-
-        // var resultTitle = $(doc).find('h1.sectionHeader span').toString();
-        // alert(resultTitle);
-
-        var results = $(doc).find('div');
-        results.each(function (index, result) {
-            var i = (index + 1).toString();
-            //alert($(result).html());
-
-            var tdId = 'td-result-step2-' + i + '-2';
-            var td = $('#' + tdId);
-
-            // "Interested" checkbox
-            td.append('<div class="form-group"><input type="checkbox" id="checkbox-step2-' + i + '-2" /><div class="btn-group"><label for="checkbox-step2-' + i + '-2" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span><span> </span></label><label for="checkbox-step2-' + i + '-2" class="btn btn-default active">Interested</label></div></div>');
-
-            // var imageUrl = $(result).find('img').prop('src');
-            // alert(imageUrl);
-            // td.append('<img src="' + imageUrl + '">');
-
-            //var title = $(result).find('a.gs-title')[0];
-            //td.append('<p><a href="' + a + '">' + title.text() + '</a></p>');
-
-            td.append($(result).html());
-        });
-    });
-
 
     $('#search-carousel').carousel(1);
+}
+
+function customSearch() {
+    var keywords = customInput.val();
+    searchFromNBR(keywords);
+}
+
+var customInput = $('#custom-input');
+customInput.bind('enterKey', function (e) {
+    customSearch();
+    event.preventDefault();
+});
+customInput.keyup(function (e) {
+    if (e.keyCode == 13) {
+        $(this).trigger('enterKey');
+    }
 });
 
+$(document).on('click', '#custom-search', function (event) {
+    customSearch();
+    event.preventDefault();
+});
+
+$(document).on('click', '.feature', function () {
+    var keywords = $(this).text().trim();
+    searchFromNBR(keywords);
+});
+
+$(document).on('click', '#next-result', function (event) {
+    var selectedCheckboxIds = [];
+    $('[type=checkbox]').each(function () {
+        var id = $(this).prop('id').toString().substring(9);
+        if ($(this).prop('checked')) {
+            selectedCheckboxIds.push(id);
+        }
+    });
+
+    $.each(selectedCheckboxIds, function (index, id) {
+        var tdContent = $('#td-content-' + id);
+        var href = tdContent.find('p a').prop('href');
+        getArticleFromNBR(href, index + 1);
+    });
+
+    $('#search-carousel').carousel(2);
+    event.preventDefault();
+});

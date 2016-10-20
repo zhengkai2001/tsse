@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" xmlns="http://www.w3.org/1999/html">
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +8,7 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-checkbox-fancy.css" rel="stylesheet">
+    <link href="css/bootstrap-table.min.css" rel="stylesheet">
     <link href="css/jquery-ui.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/hcc-tsse.css" rel="stylesheet">
@@ -16,116 +17,210 @@
 <body>
 
 <div class="container">
-    <h2>Laptop Shopping Helper</h2>
+    <h2><a href="?">Laptop Shopping Helper</a></h2>
     <hr/>
 
     <div class="col-md-12 carousel slide" data-interval="false" id="search-carousel">
         <div class="carousel-inner">
 
-            <div class="item active" id="coursel-step1">
-                <h2>Choose laptop features you desire:</h2>
+            <div class="item active">
+                <p class="lead">Choose features you desire for your next laptop:</p>
                 <div class="row">
-                    <div class="col-md-12 form-group">
-                        <input type="checkbox" id="checkbox-business"/>
-                        <div class="btn-group">
-                                <label for="checkbox-business" class="btn btn-info">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                <span> </span>
-                            </label>
-                            <label for="checkbox-business" class="btn btn-default active">
-                                <i class="fa fa-briefcase fa-lg"></i>
-                                Business
-                            </label>
-                        </div>
+                    <div class="col-md-12">
+                        <p>
+                            <button type="button" class="btn btn-primary btn-lg feature">
+                                <i class="fa fa-briefcase fa-lg"></i> Business
+                            </button>
+                        </p>
                     </div>
 
-                    <div class="col-md-12 form-group">
-                        <input type="checkbox" id="checkbox-gaming"/>
-                        <div class="btn-group">
-                            <label for="checkbox-gaming" class="btn btn-info">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                <span> </span>
-                            </label>
-                            <label for="checkbox-gaming" class="btn btn-default active">
-                                <i class="fa fa-gamepad fa-lg"></i>
-                                Gaming
-                            </label>
-                        </div>
+                    <div class="col-md-12">
+                        <p>
+                            <button type="button" class="btn btn-primary btn-lg feature">
+                                <i class="fa fa-gamepad fa-lg"></i> Gaming
+                            </button>
+                        </p>
                     </div>
 
-                    <div class="col-md-12 form-group">
-                        <input type="checkbox" id="checkbox-computing"/>
-                        <div class="btn-group">
-                            <label for="checkbox-computing" class="btn btn-info">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                <span> </span>
-                            </label>
-                            <label for="checkbox-computing" class="btn btn-default active">
-                                <i class="fa fa-calculator fa-lg"></i>
-                                Computing-intensive
-                            </label>
-                        </div>
+                    <div class="col-md-12">
+                        <p>
+                            <button type="button" class="btn btn-primary btn-lg feature">
+                                <i class="fa fa-calculator fa-lg"></i> High Performance
+                            </button>
+                        </p>
                     </div>
 
-                    <div class="col-md-12 form-group">
-                        <input type="checkbox" id="checkbox-design"/>
-                        <div class="btn-group">
-                            <label for="checkbox-design" class="btn btn-info">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                <span> </span>
-                            </label>
-                            <label for="checkbox-design" class="btn btn-default active">
-                                <i class="fa fa-paint-brush fa-lg"></i>
-                                Graphic Design
-                            </label>
-                        </div>
+                    <div class="col-md-12">
+                        <p>
+                            <button type="button" class="btn btn-primary btn-lg feature">
+                                <i class="fa fa-paint-brush fa-lg"></i> Graphic Design
+                            </button>
+                        </p>
                     </div>
 
-                    <div class="col-md-12 form-group">
-                        <input type="checkbox" id="checkbox-lightweight"/>
-                        <div class="btn-group">
-                            <label for="checkbox-lightweight" class="btn btn-info">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                <span> </span>
-                            </label>
-                            <label for="checkbox-lightweight" class="btn btn-default active">
-                                <i class="fa fa-leaf fa-lg"></i>
-                                Lightweight
-                            </label>
-                        </div>
+                    <div class="col-md-12">
+                        <p>
+                            <button type="button" class="btn btn-primary btn-lg feature">
+                                <i class="fa fa-leaf fa-lg"></i> Lightweight
+                            </button>
+                        </p>
                     </div>
                 </div>
 
-
-                <div class="row">
-                    <p></p>
-                    <div class="col-md-1 control-group">
-                        <button class="btn btn-primary" id="next-step1">Next</button>
-                    </div>
+                <p class="lead">Or input some keywords yourself:</p>
+                <div class="row col-md-12">
+                    <form class="form-inline">
+                        <input type="search" class="form-control" id="custom-input" placeholder="i7 6700HQ">
+                        <button type="button" class="btn btn-primary" id="custom-search">Search</button>
+                    </form>
                 </div>
-
             </div>
 
-            <div class="item col-md-12" id="coursel-step2">
-                <h2 id="h2-step2"></h2>
-                <table class="table table-striped" id="table-result-step2">
+            <div class="item col-md-12">
+                <p class="lead">Choose laptops you are interested in: (maximum 3 models)</p>
+                <!--<p id="message-result"></p>-->
+
+                <table class="table table-striped" id="table-result"
+                       data-toggle="table" data-pagination="true" data-page-size="15"
+                       data-page-list="[15, 30, 50]" data-show-header="false">
                     <thead>
-                    <th class="col-md-4"><h3 id="h3-step2"></h3></th>
+                    <tr>
+                        <th class="col-md-2"></th>
+                        <th class="col-md-10"></th>
+                    </tr>
                     </thead>
                     <tbody>
+                    <tr class="no-data">
+                        <td>No data</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br/>
+
+                <p>
+                    <button type="button" class="btn btn-primary btn-lg" id="next-result">Next</button>
+                </p>
+            </div>
+
+            <div class="item col-md-13">
+                <p class="lead">Head-to-head comparison</p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="col-md-1">Facets</th>
+                        <th class="col-md-4 text-center">Article 1</th>
+                        <th class="col-md-4 text-center">Article 2</th>
+                        <th class="col-md-4 text-center">Article 3</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td class="col-md-1">Link</td>
+                        <td class="col-md-4 text-center" id="link-1"></td>
+                        <td class="col-md-4 text-center" id="link-2"></td>
+                        <td class="col-md-4 text-center" id="link-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Overall Rating</td>
+                        <td class="col-md-4 text-center" id="rating-1"></td>
+                        <td class="col-md-4 text-center" id="rating-2"></td>
+                        <td class="col-md-4 text-center" id="rating-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Pros</td>
+                        <td class="col-md-4" id="pros-1"></td>
+                        <td class="col-md-4" id="pros-2"></td>
+                        <td class="col-md-4" id="pros-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Cons</td>
+                        <td class="col-md-4" id="cons-1"></td>
+                        <td class="col-md-4" id="cons-2"></td>
+                        <td class="col-md-4" id="cons-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Summary</td>
+                        <td class="col-md-4" id="summary-1"></td>
+                        <td class="col-md-4" id="summary-2"></td>
+                        <td class="col-md-4" id="summary-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Design</td>
+                        <td class="col-md-4" id="design-1"></td>
+                        <td class="col-md-4" id="design-2"></td>
+                        <td class="col-md-4" id="design-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Ports</td>
+                        <td class="col-md-4" id="ports-1"></td>
+                        <td class="col-md-4" id="ports-2"></td>
+                        <td class="col-md-4" id="ports-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Screen and Speakers</td>
+                        <td class="col-md-4" id="screen_speakers-1"></td>
+                        <td class="col-md-4" id="screen_speakers-2"></td>
+                        <td class="col-md-4" id="screen_speakers-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Keyboard and Touchpad</td>
+                        <td class="col-md-4" id="keyboard_touchpad-1"></td>
+                        <td class="col-md-4" id="keyboard_touchpad-2"></td>
+                        <td class="col-md-4" id="keyboard_touchpad-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Performance</td>
+                        <td class="col-md-4" id="performance-1"></td>
+                        <td class="col-md-4" id="performance-2"></td>
+                        <td class="col-md-4" id="performance-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Emission</td>
+                        <td class="col-md-4" id="emission-1"></td>
+                        <td class="col-md-4" id="emission-2"></td>
+                        <td class="col-md-4" id="emission-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Longevity</td>
+                        <td class="col-md-4" id="longevity-1"></td>
+                        <td class="col-md-4" id="longevity-2"></td>
+                        <td class="col-md-4" id="longevity-3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-1">Conclusion</td>
+                        <td class="col-md-4" id="conclusion-1"></td>
+                        <td class="col-md-4" id="conclusion-2"></td>
+                        <td class="col-md-4" id="conclusion-3"></td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-
 </div>
 
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/index.js"></script>
+<script src="js/bootstrap-table.min.js"></script>
+<script src="js/bootstrap-table-en-US.min.js"></script>
+<script src="js/forums.js"></script>
+<script src="js/forum_search.js"></script>
 </body>
 
 </html>

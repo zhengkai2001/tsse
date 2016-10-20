@@ -1,4 +1,4 @@
-var phpUrl = 'http://localhost/tsse/query.php?';
+var phpUrl = 'http://localhost/tsse/util.php?';
 
 var rowNumber = 12;
 var columnNumber = 3;
@@ -25,7 +25,7 @@ $(document).on('click', '#next-step1', function () {
     $('#h2-step2').text('Search Results for "' + keywords + '"');
 
     // forum 1: notebookreview
-    var query1 = phpUrl + 'nbr_forum_search=' + keywords;
+    var query1 = phpUrl + 'search&forum=nbr&keywords==' + keywords;
     $.get(query1, function (resultPage) {
         var doc = $.parseHTML(resultPage.toString());
 
@@ -57,7 +57,7 @@ $(document).on('click', '#next-step1', function () {
     });
 
     // forum 2: laptopmag
-    var query2 = phpUrl + 'ltm_forum_search=' + keywords;
+    var query2 = phpUrl + 'search&forum=ltm&keywords==' + keywords;
     $.get(query2, function (resultPage) {
         var doc = $.parseHTML(resultPage.toString());
         alert(resultPage.toString());

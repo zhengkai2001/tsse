@@ -16,7 +16,19 @@ $context = stream_context_create(array(
     )
 ));
 
-if (isset($_GET['url'])) {
+if (isset($_GET['search']) && isset($_GET['forum'])) {
+    $forum = $_GET['forum'];
+    $keywords = str_replace(' ', '+', trim($_GET['keywords']));
+
+    if ($forum == 'nbr') {
+        $queryUrl = 'http://www.notebookreview.com/?s=' . $keywords . '&fq=type:"notebookreview"%7C%7Cblogid:2';
+        echo file_get_contents($queryUrl);
+    } elseif ($forum == 'ltm') {
+        $queryUrl = 'http://www.laptopmag.com/search?q=' . $keywords;
+//        $queryUrl = 'https://www.google.com/search?q=site%3A+www.laptopmag.com+' . $keywords;
+        echo file_get_contents($queryUrl, false, $context);
+    }
+} elseif (isset($_GET['fetch'])) {
     echo file_get_contents($_GET['url'], false, $context);
 }
 
