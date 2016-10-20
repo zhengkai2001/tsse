@@ -38,7 +38,7 @@ function searchFromNBR(keywords) {
             tdInterested.append('<div class="form-group"><input type="checkbox" id="checkbox-' + iStr + '"/><div class="btn-group"><label for="checkbox-' + iStr + '" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span><span> </span></label><label for="checkbox-' + iStr + '" class="btn btn-default active">Interested</label></div> </div>');
 
             var imageUrl = $(result).find('img').prop('src');
-            tdContent.append('<img src="' + imageUrl + '">');
+            tdContent.append('<img class="search-result" src="' + imageUrl + '">');
 
             var title = $(result).find('h4.title');
             var a = $(title).find('a')[0];
@@ -66,12 +66,12 @@ function customSearch() {
 }
 
 var customInput = $('#custom-input');
-customInput.bind('enterKey', function (e) {
+customInput.bind('enterKey', function (event) {
     customSearch();
     event.preventDefault();
 });
-customInput.keyup(function (e) {
-    if (e.keyCode == 13) {
+customInput.keyup(function (event) {
+    if (event.keyCode == 13) {
         $(this).trigger('enterKey');
     }
 });

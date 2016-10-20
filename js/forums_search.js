@@ -49,7 +49,7 @@ $(document).on('click', '#next-step1', function () {
             td.append('<div class="form-group"><input type="checkbox" id="checkbox-step2-' + i + '-1" /><div class="btn-group"><label for="checkbox-step2-' + i + '-1" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span><span> </span></label><label for="checkbox-step2-' + i + '-1" class="btn btn-default active">Interested</label></div></div>');
 
             var imageUrl = $(result).find('img').prop('src');
-            td.append('<img src="' + imageUrl + '">');
+            td.append('<img class="search-result" src="' + imageUrl + '">');
 
             var title = $(result).find('h4.title');
             var a = $(title).find('a')[0];
