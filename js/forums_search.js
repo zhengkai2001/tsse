@@ -1,4 +1,8 @@
-var phpUrl = 'http://localhost/tsse/util.php?';
+// This js enable user to search on three different sites,
+// and present search results onto forums_search.html
+
+// var phpUrl = 'http://localhost/tsse/utils.php?';
+var phpUrl = 'https://tsse.herokuapp.com/utils.php?';
 
 var rowNumber = 12;
 var columnNumber = 3;
@@ -60,7 +64,7 @@ $(document).on('click', '#next-step1', function () {
     var query2 = phpUrl + 'search&forum=ltm&keywords==' + keywords;
     $.get(query2, function (resultPage) {
         var doc = $.parseHTML(resultPage.toString());
-        alert(resultPage.toString());
+        // alert(resultPage.toString());
 
         // var resultTitle = $(doc).find('h1.sectionHeader span').toString();
         // alert(resultTitle);

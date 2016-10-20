@@ -1,5 +1,8 @@
-var phpUrl = 'http://localhost/tsse/utils.php?';
-// var phpUrl = 'https://tsse.herokuapp.com/utils.php?';
+// This js provides three review articles,
+// and presents them onto comparison2.html.
+
+// var phpUrl = 'http://localhost/tsse/utils.php?';
+var phpUrl = 'https://tsse.herokuapp.com/utils.php?';
 
 var nbrUrl = 'http://www.notebookreview.com/notebookreview/dell-xps-13-review-2016/';
 var ltmUrl = 'http://www.laptopmag.com/reviews/laptops/dell-xps-13';

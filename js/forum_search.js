@@ -1,4 +1,8 @@
-var phpUrl = 'http://localhost/tsse/utils.php?';
+// This js enable user to search on one site (notebookreview.com),
+// and present search results onto forum-search.html.
+
+//var phpUrl = 'http://localhost/tsse/utils.php?';
+var phpUrl = 'https://tsse.herokuapp.com/utils.php?';
 
 function searchFromNBR(keywords) {
     // forum: notebookreview

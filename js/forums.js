@@ -1,3 +1,6 @@
+// This js parses review articles from 3 different review sites,
+// and provides functions for other js files.
+
 // specifically for notebookreview.com
 function buildSectionNBR(content, section, part, numStr) {
     var str = '';
@@ -71,6 +74,7 @@ function buildSectionNBC(content, section, part, numStr) {
     $(part + '-' + numStr).append('<h4>' + section + '</h4>' + str);
 }
 
+// parse review articles from notebookreview.com
 function getArticleFromNBR(url, number) {
     var numStr = number.toString();
 
@@ -137,6 +141,7 @@ function getArticleFromNBR(url, number) {
     });
 }
 
+// parse review articles from laptopmag.com
 function getArticleFromLTM(url, number) {
     var numStr = number.toString();
 
@@ -210,6 +215,7 @@ function getArticleFromLTM(url, number) {
     });
 }
 
+// parse review articles from notebookcheck.com
 function getArticleFromNBC(url, number) {
     var numStr = number.toString();
 
