@@ -10,6 +10,7 @@
     <link href="css/bootstrap-checkbox-fancy.css" rel="stylesheet">
     <link href="css/jquery-ui.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap-font-awesome-circle-buttons.css" rel="stylesheet">
     <link href="css/hcc-tsse.css" rel="stylesheet">
 </head>
 
@@ -35,93 +36,289 @@
             <tbody>
             <tr>
                 <td class="col-md-1">Link</td>
-                <td class="col-md-4 text-center" id="link-1"></td>
-                <td class="col-md-4 text-center" id="link-2"></td>
-                <td class="col-md-4 text-center" id="link-3"></td>
+                <td class="col-md-4 text-center" id="link-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4 text-center" id="link-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4 text-center" id="link-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
                 <td class="col-md-1">Overall Rating</td>
-                <td class="col-md-4 text-center" id="rating-1"></td>
-                <td class="col-md-4 text-center" id="rating-2"></td>
-                <td class="col-md-4 text-center" id="rating-3"></td>
+                <td class="col-md-4 text-center" id="rating-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4 text-center" id="rating-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4 text-center" id="rating-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
                 <td class="col-md-1">Pros</td>
-                <td class="col-md-4" id="pros-1"></td>
-                <td class="col-md-4" id="pros-2"></td>
-                <td class="col-md-4" id="pros-3"></td>
+                <td class="col-md-4" id="pros-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="pros-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="pros-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
                 <td class="col-md-1">Cons</td>
-                <td class="col-md-4" id="cons-1"></td>
-                <td class="col-md-4" id="cons-2"></td>
-                <td class="col-md-4" id="cons-3"></td>
+                <td class="col-md-4" id="cons-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="cons-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="cons-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
                 <td class="col-md-1">Summary</td>
-                <td class="col-md-4" id="summary-1"></td>
-                <td class="col-md-4" id="summary-2"></td>
-                <td class="col-md-4" id="summary-3"></td>
+                <td class="col-md-4" id="summary-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="summary-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="summary-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Design</td>
-                <td class="col-md-4" id="design-1"></td>
-                <td class="col-md-4" id="design-2"></td>
-                <td class="col-md-4" id="design-3"></td>
+                <td class="col-md-1">Design
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".design-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="design-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="design-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="design-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Ports</td>
-                <td class="col-md-4" id="ports-1"></td>
-                <td class="col-md-4" id="ports-2"></td>
-                <td class="col-md-4" id="ports-3"></td>
+                <td class="col-md-1">Ports
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".ports-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="ports-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="ports-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="ports-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Screen and Speakers</td>
-                <td class="col-md-4" id="screen_speakers-1"></td>
-                <td class="col-md-4" id="screen_speakers-2"></td>
-                <td class="col-md-4" id="screen_speakers-3"></td>
+                <td class="col-md-1">Screen and Speakers
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".screen_speakers-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="screen_speakers-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="screen_speakers-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="screen_speakers-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Keyboard and Touchpad</td>
-                <td class="col-md-4" id="keyboard_touchpad-1"></td>
-                <td class="col-md-4" id="keyboard_touchpad-2"></td>
-                <td class="col-md-4" id="keyboard_touchpad-3"></td>
+                <td class="col-md-1">Keyboard and Touchpad
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".keyboard_touchpad-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="keyboard_touchpad-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="keyboard_touchpad-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="keyboard_touchpad-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Performance</td>
-                <td class="col-md-4" id="performance-1"></td>
-                <td class="col-md-4" id="performance-2"></td>
-                <td class="col-md-4" id="performance-3"></td>
+                <td class="col-md-1">Performance
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".performance-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="performance-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="performance-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="performance-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Emission</td>
-                <td class="col-md-4" id="emission-1"></td>
-                <td class="col-md-4" id="emission-2"></td>
-                <td class="col-md-4" id="emission-3"></td>
+                <td class="col-md-1">Emission
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".emission-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="emission-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="emission-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="emission-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Longevity</td>
-                <td class="col-md-4" id="longevity-1"></td>
-                <td class="col-md-4" id="longevity-2"></td>
-                <td class="col-md-4" id="longevity-3"></td>
+                <td class="col-md-1">Longevity
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".longevity-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="longevity-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="longevity-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="longevity-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             <tr>
-                <td class="col-md-1">Conclusion</td>
-                <td class="col-md-4" id="conclusion-1"></td>
-                <td class="col-md-4" id="conclusion-2"></td>
-                <td class="col-md-4" id="conclusion-3"></td>
+                <td class="col-md-1">Conclusion
+                    <button type="button" class="btn btn-sm btn-primary btn-circle"
+                            data-toggle="collapse" data-target=".conclusion-collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+                <td class="col-md-4" id="conclusion-1">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="conclusion-2">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
+                <td class="col-md-4" id="conclusion-3">
+                    <label class="vertical-center spinner">
+                        <img src="images/spinner.gif" alt="spinner"/>
+                    </label>
+                </td>
             </tr>
 
             </tbody>

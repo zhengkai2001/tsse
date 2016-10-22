@@ -1,80 +1,99 @@
 // This js parses review articles from 3 different review sites,
 // and provides functions for other js files.
 
-function appendContent(part, numStr, title, content) {
-    var id = part + '-' + numStr;
-    var collapseClass = part.substring(1) + '-collapse';
+function appendContent(id, numStr, title, content) {
+    var tdId = id + '-' + numStr;
+    var collapseClass = id.substring(1) + '-collapse';
 
-    $(id).append('<div class="' + collapseClass + '" class="collapse"><h4>' + title + '</h4>' + content + '</div>');
-    // $(id).append('<h4>' + title + '</h4>' + content + '</div>');
+    if (content == '') {
+        content = '(not provided)';
+    }
+
+    $(tdId).append('<div class="' + collapseClass + ' collapse"><h4>' + title + '</h4>' + content + '</div>');
 }
 
 function getContentFromPs(ps) {
     var content = '';
     ps.each(function (index, p) {
-        content += $(p).html();
+        content += $(p).html().trim();
     });
     return content;
 }
 
 // specifically for notebookreview.com
-function buildSectionNBR(originalContent, title, part, numStr) {
-    var ps = $(originalContent).parent().nextUntil('h1, h2', 'p');
+function buildSectionNBR(part, title, id, numStr) {
+    var ps = $(part).nextUntil('strong, b, p:has(b), h1, h2', 'p');
     var content = getContentFromPs(ps);
 
     //<h1></h1> <p></p><p></p>
     if (content == '') {
-        ps = $(originalContent).nextUntil('h1, h2', 'p');
+        ps = $(part).parent().nextUntil('strong, b, p:has(b), h1, h2', 'p');
         content = getContentFromPs(ps);
     }
-    appendContent(part, numStr, title, content);
+    appendContent(id, numStr, title, content);
 }
 
 // specifically for laptopmag.com
-function buildSectionLTM(originalContent, title, part, numStr) {
-    var ps = $(originalContent).nextUntil('h3', 'p');
+function buildSectionLTM(part, title, id, numStr) {
+    var ps = $(part).nextUntil('h3', 'p');
     var content = getContentFromPs(ps);
-    appendContent(part, numStr, title, content);
+    appendContent(id, numStr, title, content);
 }
 
 // specifically for notebookcheck.com
-function buildSectionNBC(originalContent, title, part, numStr) {
+function buildSectionNBC(part, title, id, numStr) {
     //<h2>Case</h2></div> <div> <div></div> <div class="csc-textpic-text"><p
-    var ps = $(originalContent).parent().next().find('div.csc-textpic-text');
+    var ps = $(part).parent().next().find('div.csc-textpic-text');
     var content = getContentFromPs(ps);
 
     //<h2>Connectivity</h2></div></div> <div> <div class="csc-textpic-text">
     if (content == '') {
-        ps = $(originalContent).parent().parent().next().find('div.csc-textpic-text');
+        ps = $(part).parent().parent().next().find('div.csc-textpic-text');
         content = getContentFromPs(ps);
     }
 
     //<h3>Speakers</h3></div> <div class="csc-textpic-text">
     if (content == '') {
-        ps = $(originalContent).parent().next('div.csc-textpic-text');
+        ps = $(part).parent().next('div.csc-textpic-text');
         content = getContentFromPs(ps);
     }
 
     //<h2>Display</h2></div></div> <div><div></div></div> <div><div class="csc-textpic-text">
     if (content == '') {
-        ps = $(originalContent).parent().parent().next().next().find('div.csc-textpic-text');
+        ps = $(part).parent().parent().next().next().find('div.csc-textpic-text');
         content = getContentFromPs(ps);
     }
 
     //<div class="csc-textpic-text"><h3>Keyboard</h3><p
     if (content == '') {
-        ps = $(originalContent).nextUntil('h2, h3', 'p');
+        ps = $(part).nextUntil('h2, h3', 'p');
         content = getContentFromPs(ps);
     }
 
     //<h3>Power Consumption</h3></div><p
     if (content == '') {
-        ps = $(originalContent).parent().nextUntil('h2, h3', 'p');
+        ps = $(part).parent().nextUntil('h2, h3', 'p');
         content = getContentFromPs(ps);
     }
 
-    appendContent(part, numStr, title, content);
+    appendContent(id, numStr, title, content);
 }
+
+var dictNBR = {
+    'Build and Design': '#design',
+    'Ports and Features': '#ports',
+    'Ports': '#ports',
+    'Input and Output Ports': '#ports',
+    'Screen and Speakers': '#screen_speakers',
+    'Display and Sound': '#screen_speakers',
+    'Display and Speakers': '#screen_speakers',
+    'Keyboard and Touchpad': '#keyboard_touchpad',
+    'Performance': '#performance',
+    'Benchmarks': '#performance',
+    'Heat and Noise': '#emission',
+    'Battery Life': '#longevity',
+    'Conclusion': '#conclusion'
+};
 
 // parse review articles from notebookreview.com
 function getArticleFromNBR(url, number) {
@@ -87,9 +106,8 @@ function getArticleFromNBR(url, number) {
         var title = $(doc).filter('title').html();
         $('#link-' + numStr).append('<a href="' + url + '" target = "_blank">' + title + '</a>');
 
-        // var rating = $(doc).find('li.ratingsTotal li.ratingValue').html();
-        var rating = $(doc).find('meta[itemprop="ratingValue"]').prop('originalContent');
-        var bestRating = $(doc).find('meta[itemprop="bestRating"]').prop('originalContent');
+        var rating = $(doc).find('meta[itemprop="ratingValue"]').prop('content');
+        var bestRating = $(doc).find('meta[itemprop="bestRating"]').prop('content');
 
         if (rating == null) {
             rating = $(doc).find('li.ratingsTotal ul li.ratingValue').text().trim();
@@ -108,45 +126,36 @@ function getArticleFromNBR(url, number) {
         var cons = $(pros_cons[1]).next()[0].outerHTML;
         $('#cons-' + numStr).append(cons);
 
-        var summary = $(doc).find('div.pf-originalContent p').first();
+        var summary = $(doc).find('div.pf-content p').first();
         $('#summary-' + numStr).append(summary);
 
-        var parts = $(doc).find('strong,h1,h2');
+        var done = {};
+        var parts = $(doc).find('strong,b,h1,h2');
         parts.each(function (index, part) {
-            var title = $(part).html();
-            if (title === 'Build and Design') {
-                alert(title);
-                alert(part);
-                buildSectionNBR(part, title, '#design', numStr);
+            var title = $(part).text().trim();
 
-            } else if (title === 'Ports and Features') {
-                buildSectionNBR(part, title, '#ports', numStr);
-
-            } else if (title === 'Screen and Speakers') {
-                buildSectionNBR(part, title, '#screen_speakers', numStr);
-
-            } else if (title === 'Keyboard and Touchpad') {
-                buildSectionNBR(part, title, '#keyboard_touchpad', numStr);
-
-            } else if (title === 'Performance'
-                || title === 'Benchmarks') {
-                buildSectionNBR(part, title, '#performance', numStr);
-
-            } else if (title === 'Heat and Noise') {
-                buildSectionNBR(part, title, '#emission', numStr);
-
-            } else if (title === 'Battery Life') {
-                buildSectionNBR(part, title, '#longevity', numStr);
-
-            } else if (title === 'Conclusion') {
-                buildSectionNBR(part, title, '#conclusion', numStr);
+            if (title in dictNBR && !(title in done)) {
+                done[title] = true;
+                buildSectionNBR(part, title, dictNBR[title], numStr);
             }
         });
 
-        // remove all spinners
-        $('td[id$="-' + numStr + '"] .spinner').remove();
+        removeAllSpinners(numStr);
     });
 }
+
+var dictLTM = {
+    'Design': '#design',
+    'Ports': '#ports',
+    'Display': '#screen_speakers',
+    'Audio': '#screen_speakers',
+    'Keyboard and Touchpad': '#keyboard_touchpad',
+    'Performance': '#performance',
+    'Graphics Performance': '#performance',
+    'Heat': '#emission',
+    'Battery Life': '#longevity',
+    'Verdict': '#conclusion'
+};
 
 // parse review articles from laptopmag.com
 function getArticleFromLTM(url, number) {
@@ -159,8 +168,8 @@ function getArticleFromLTM(url, number) {
         var title = $(doc).filter('title').html();
         $('#link-' + numStr).append('<a href="' + url + '" target = "_blank">' + title + '</a>');
 
-        var rating = $(doc).find('meta[itemprop="ratingValue"]').prop('originalContent');
-        var bestRating = $(doc).find('meta[itemprop="bestRating"]').prop('originalContent');
+        var rating = $(doc).find('meta[itemprop="ratingValue"]').prop('content');
+        var bestRating = $(doc).find('meta[itemprop="bestRating"]').prop('content');
         $('#rating-' + numStr).append(rating + ' / ' + bestRating);
 
         var prosLi = $(doc).find('li.otmPros')[0];
@@ -181,46 +190,45 @@ function getArticleFromLTM(url, number) {
         consStr += '</ul>';
         $('#cons-' + numStr).append(consStr);
 
-        var summarySection = $(doc).find('section.otm-originalContent')[0];
+        var summarySection = $(doc).find('section.otm-content')[0];
         var summaryText = $(summarySection).find('p').html();
         $('#summary-' + numStr).append(summaryText);
 
-        var hasVerdict = false;
+        var done = {};
+        var parts = $(doc).find('h2, h3');
+        parts.each(function (index, part) {
+            var title = $(part).text().trim();
+            if (title === 'Verdict /') {
+                title = 'Verdict';
+            }
 
-        var hs = $(doc).find('h2, h3');
-        hs.each(function (index, h) {
-            var section = $(h).html();
-            if (section === 'Design') {
-                buildSectionLTM(h, section, '#design', numStr);
-
-            } else if (section === 'Ports') {
-                buildSectionLTM(h, section, '#ports', numStr);
-
-            } else if (section === 'Display'
-                || section === 'Audio') {
-                buildSectionLTM(h, section, '#screen_speakers', numStr);
-
-            } else if (section === 'Keyboard and Touchpad') {
-                buildSectionLTM(h, section, '#keyboard_touchpad', numStr);
-
-            } else if (section === 'Performance'
-                || section === 'Graphics Performance') {
-                buildSectionLTM(h, section, '#performance', numStr);
-
-            } else if (section === 'Heat') {
-                buildSectionLTM(h, section, '#emission', numStr);
-
-            } else if (section === 'Battery Life') {
-                buildSectionLTM(h, section, '#longevity', numStr);
-
-            } else if (section === 'Verdict /' && !hasVerdict) {
-                hasVerdict = true;
-                section = "Verdict";
-                buildSectionLTM(h, section, '#conclusion', numStr);
+            if (title in dictLTM && !(title in done)) {
+                done[title] = true;
+                buildSectionLTM(part, title, dictLTM[title], numStr);
             }
         });
+
+        removeAllSpinners(numStr);
     });
 }
+
+var dictNBC = {
+    'Case': '#design',
+    'Connectivity': '#ports',
+    'Display': '#screen_speakers',
+    'Speakers': '#screen_speakers',
+    'Keyboard': '#keyboard_touchpad',
+    'Touchpad': '#keyboard_touchpad',
+    'Processor': '#performance',
+    'System Performance': '#performance',
+    'Graphics Card': '#performance',
+    'Gaming Performance': '#performance',
+    'Storage Device': '#performance',
+    'System Noise': '#emission',
+    'Temperature': '#emission',
+    'Power Consumption': '#longevity',
+    'Verdict': '#conclusion'
+};
 
 // parse review articles from notebookcheck.com
 function getArticleFromNBC(url, number) {
@@ -236,49 +244,48 @@ function getArticleFromNBC(url, number) {
         var rating = $(doc).find('tspan#tspan4350').html();
         $('#rating-' + numStr).append(rating);
 
-        $('#pros-' + numStr).append("Not provided");
-        $('#cons-' + numStr).append("Not provided");
+        var proSpans = $(doc).find('span.pro_eintrag');
+        var prosStr = '<ul>';
+        proSpans.each(function (index, proSpan) {
+            prosStr += '<li>' + $(proSpan).text() + '</li>';
+        });
+        prosStr += '</ul>';
+        $('#pros-' + numStr).append(prosStr);
+
+        var conSpans = $(doc).find('span.contra_eintrag');
+        var consStr = '<ul>';
+        conSpans.each(function (index, conSpan) {
+            consStr += '<li>' + $(conSpan).text() + '</li>';
+        });
+        consStr += '</ul>';
+        $('#cons-' + numStr).append(consStr);
 
         var summarySection = $(doc).find('b')[0];
         var summaryText = $(summarySection).parent().html();
         $('#summary-' + numStr).append(summaryText);
-        //
-        var hs = $(doc).find('h2, h3');
-        hs.each(function (index, h) {
-            var section = $(h).html();
-            if (section === 'Case') {
-                buildSectionNBC(h, section, '#design', numStr);
 
-            } else if (section === 'Connectivity') {
-                buildSectionNBC(h, section, '#ports', numStr);
+        var done = {};
+        var parts = $(doc).find('h2, h3');
+        parts.each(function (index, part) {
+            var title = $(part).text().trim();
 
-            } else if (section === 'Display') {
-                buildSectionNBC(h, section, '#screen_speakers', numStr);
-
-            } else if (section === 'Speakers') {
-                buildSectionNBC(h, section, '#screen_speakers', numStr);
-
-            } else if (section === 'Keyboard'
-                || section === 'Touchpad') {
-                buildSectionNBC(h, section, '#keyboard_touchpad', numStr);
-
-            } else if (section === 'Processor'
-                || section === 'System Performance'
-                || section === 'Graphics Card'
-                || section === 'Gaming Performance'
-                || section === 'Storage Device') {
-                buildSectionNBC(h, section, '#performance', numStr);
-
-            } else if (section === 'System Noise'
-                || section === 'Temperature') {
-                buildSectionNBC(h, section, '#emission', numStr);
-
-            } else if (section === 'Power Consumption') {
-                buildSectionNBC(h, section, '#longevity', numStr);
-
-            } else if (section === 'Verdict') {
-                buildSectionNBC(h, section, '#conclusion', numStr);
+            if (title in dictNBC && !(title in done)) {
+                done[title] = true;
+                buildSectionNBC(part, title, dictNBC[title], numStr);
             }
         });
+
+        removeAllSpinners(numStr);
     });
 }
+
+function removeAllSpinners(numStr) {
+    $('td[id$="-' + numStr + '"] .spinner').remove();
+}
+
+// when a <td> has content, hide spinner
+$('td').bind("DOMSubtreeModified", function () {
+    var label = $(this).find('.spinner');
+    //alert(label.html())
+    label.css("visibility", "hidden");
+});

@@ -5,15 +5,9 @@
 var phpUrl = 'https://tsse.herokuapp.com/utils.php?';
 
 function searchFromNBR(keywords) {
-    // forum: notebookreview
     var query = phpUrl + 'search&forum=nbr&keywords=' + keywords;
     $.get(query, function (resultPage) {
         var doc = $.parseHTML(resultPage.toString());
-
-        // var resultTitleHtml = $(doc).find('h1.searchResultsTitle').text();
-        // var indexOfFor = resultTitleHtml.indexOf('for');
-        // var message = resultTitleHtml.substr(0, indexOfFor) + 'from NotebookReview';
-        // $('#message-result').text(message);
 
         var hasData = false;
 
@@ -105,9 +99,3 @@ $(document).on('click', '#next-result', function (event) {
     event.preventDefault();
 });
 
-// when a <td> has content, hide spinner
-$('td').bind("DOMSubtreeModified",function(){
-    var label = $(this).find('.spinner');
-    //alert(label.html())
-    label.css("visibility", "hidden");
-});
