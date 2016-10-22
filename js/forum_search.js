@@ -51,6 +51,7 @@ function searchFromNBR(keywords) {
         }
     });
 
+    $('#h2-title').text('Article search result (from notebookreview.com)')
     $('#search-carousel').carousel(1);
 }
 
@@ -95,6 +96,7 @@ $(document).on('click', '#next-result', function (event) {
         getArticleFromNBR(href, index + 1);
     });
 
+    $('#h2-title').text('Models comparison')
     $('#search-carousel').carousel(2);
     event.preventDefault();
 });
