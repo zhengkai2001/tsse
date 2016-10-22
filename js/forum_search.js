@@ -104,3 +104,10 @@ $(document).on('click', '#next-result', function (event) {
     $('#search-carousel').carousel(2);
     event.preventDefault();
 });
+
+// when a <td> has content, hide spinner
+$('td').bind("DOMSubtreeModified",function(){
+    var label = $(this).find('.spinner');
+    //alert(label.html())
+    label.css("visibility", "hidden");
+});
